@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Class, Degree } from 'src/app/models';
+import { filterItems } from 'src/app/shared/utils/list.util';
 import ClassesList from 'src/mock-data/classes.json';
 import DegreesList from 'src/mock-data/degrees.json';
 
@@ -22,6 +23,7 @@ import DegreesList from 'src/mock-data/degrees.json';
             matInput
             [formControl]="filter.get('degreeFilter')"
             [matAutocomplete]="degreeFilter"
+            (blur)="checkDegreesValid()"
           />
         </mat-form-field>
         <mat-form-field appearance="outline" class="input-field">
@@ -79,6 +81,12 @@ export class FilterComponent implements OnInit, OnDestroy {
     return item?.name;
   }
 
+  checkDegreesValid() {
+    if (typeof this.filter.get('degreeFilter').value === 'string') {
+      this.filter.get('degreeFilter').reset();
+    }
+  }
+
   get filterButtonColor(): string {
     return this.filterOpened ? 'primary' : '';
   }
@@ -87,18 +95,10 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.filter
         .get('degreeFilter')
-        .valueChanges.pipe(map((value) => (value ? this.filterValues(value, this.degrees) : this.degrees)))
+        .valueChanges.pipe(map((value) => (value ? filterItems(value, this.degrees) : this.degrees)))
         .subscribe((filteredDegrees) => {
           this.degreesFiltered = filteredDegrees;
         })
     );
-  }
-
-  private filterValues(inputValue, list) {
-    if (typeof inputValue === 'string') {
-      const filterValue = inputValue.toLowerCase();
-      return list.filter((option) => option.name.toLowerCase().includes(filterValue));
-    }
-    return list.filter((option) => option.id === inputValue);
   }
 }

@@ -20,7 +20,7 @@ import DegreesList from 'src/mock-data/degrees.json';
 export class StudentsTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) matTable: MatTable<Student>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public dataSource: MatTableDataSource<Student>;
+  public dataSource: MatTableDataSource<Student> = new MatTableDataSource([]);
   public readonly columns = ['name', 'class', 'degree', 'actions'];
   public displayedColumns = this.columns;
   private _inputList: Student[];
@@ -37,13 +37,14 @@ export class StudentsTableComponent implements OnInit, AfterViewInit {
   }
   @Input()
   public hideControls: boolean;
+  @Input()
+  public readonly: boolean;
 
   private currentFilter: Filter;
   private lastAddedStudentIndex = 1;
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private studentsService: StudentsService) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource([]);
     if (this.inputList) {
       this.dataSource.data = this.inputList;
     } else {
@@ -61,7 +62,10 @@ export class StudentsTableComponent implements OnInit, AfterViewInit {
       return true;
     };
     if (this.hideControls) {
-      this.displayedColumns = this.displayedColumns.filter((col) => col !== 'actions');
+      this.displayedColumns = [this.displayedColumns[0], this.displayedColumns[3]];
+    }
+    if (this.readonly) {
+      this.displayedColumns = [this.displayedColumns[0]];
     }
   }
 
@@ -96,6 +100,14 @@ export class StudentsTableComponent implements OnInit, AfterViewInit {
   saveStudents() {
     this.studentsService.saveStudents(this.dataSource.data);
     this.snackBar.open('Alterações salvas com sucesso!', 'Dispensar', { duration: 2000 });
+  }
+
+  removeStudent(student: Student) {
+    this.dataSource.data.splice(
+      this.dataSource.data.findIndex((item) => item.id === student.id),
+      1
+    );
+    this.dataSource.data = [...this.dataSource.data];
   }
 
   reset() {

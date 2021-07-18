@@ -1,11 +1,11 @@
 <div class="modal-container">
-  <div class="modal-header">Editar Estudante</div>
+  <div class="modal-header">Estudantes</div>
   <mat-divider></mat-divider>
   <div class="modal-content">
-    <app-students-table [inputList]="studentsByClassAndDegree" [hideControls]="true"></app-students-table>
+    <app-students-table [inputList]="data" [hideControls]="true" [readonly]="true"></app-students-table>
   </div>
   <mat-divider></mat-divider>
   <div class="buttons-footer">
-    <button mat-raised-button (click)="closeModal()">Cancelar</button>
+    <button mat-raised-button (click)="closeModal()">Fechar</button>
   </div>
 </div>

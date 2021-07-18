@@ -15,9 +15,12 @@
     </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef style="width: 15%; text-align: center">Ações</th>
-      <td mat-cell *matCellDef="let student" style="width: 15%; text-align: center">
-        <button mat-icon-button (click)="openEditDialog(student)" color="primary">
+      <td mat-cell *matCellDef="let student" style="text-align: center; display: flex; flex-direction: row">
+        <button *ngIf="!hideControls" mat-icon-button (click)="openEditDialog(student)" color="primary" style="flex: 1">
           <mat-icon class="icon-button">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="removeStudent(student)" color="warn" style="flex: 1">
+          <mat-icon class="icon-button">delete</mat-icon>
         </button>
       </td>
     </ng-container>

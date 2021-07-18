@@ -1,3 +1,7 @@
+.table {
+  margin-top: 20px;
+}
+
 tr.teacher-position-detail-row {
   height: 0;
 }
@@ -25,14 +29,18 @@ tr.teacher-position-row:not(.teacher-position-expanded-row):active {
     flex-direction: row;
     padding: 15px;
     align-items: center;
+    flex-wrap: wrap;
 
-    .teacher-position-detail-item {
-      flex: 1;
-
-      &:last-child {
-        display: flex;
-        justify-content: flex-end;
-      }
+    .student-item {
+      flex: 1 0 25%;
+      padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      text-align: center;
     }
   }
+}
+
+.add-button-container {
+  display: block;
+  margin-top: 15px;
 }

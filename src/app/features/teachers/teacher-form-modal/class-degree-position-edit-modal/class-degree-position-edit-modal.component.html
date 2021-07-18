@@ -1,0 +1,56 @@
+<div class="modal-container">
+  <div class="modal-header">Editar Dados da Turma</div>
+  <mat-divider></mat-divider>
+  <div class="modal-content">
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Grau</mat-label>
+      <mat-select [formControl]="classDegreePositionForm.get('degree')" required>
+        <mat-option *ngFor="let degree of degreesOptions" [value]="degree">
+          {{ degree.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Classe</mat-label>
+      <mat-select [formControl]="classDegreePositionForm.get('class')" required>
+        <mat-option *ngFor="let class of classesOptions" [value]="class">
+          {{ class.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="add-student-form">
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Adicionar aluno</mat-label>
+        <input
+          type="text"
+          placeholder="Adicionar aluno"
+          matInput
+          [formControl]="addStudentControl"
+          [matAutocomplete]="studentsFilter"
+          (blur)="checkStudentValid()"
+        />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addStudent()" [disabled]="!isAddStudentValid()">
+        <mat-icon>add</mat-icon> Adicionar
+      </button>
+
+      <mat-autocomplete #studentsFilter="matAutocomplete" [displayWith]="displayWith">
+        <mat-option *ngFor="let student of studentsFiltered" [value]="student">
+          {{ student.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div class="table" *ngIf="classDegreePositionForm">
+      <app-students-table
+        [inputList]="classDegreePositionForm.get('students').value"
+        [hideControls]="true"
+      ></app-students-table>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="buttons-footer">
+    <button mat-raised-button color="primary" (click)="confirm()">Salvar</button>
+    <button mat-raised-button (click)="closeModal()">Cancelar</button>
+  </div>
+</div>

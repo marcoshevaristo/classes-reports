@@ -7,14 +7,25 @@
         <td mat-cell *matCellDef="let item">{{ item.teacher.name }}</td>
       </ng-container>
       <ng-container matColumnDef="matterName">
-        <th mat-header-cell *matHeaderCellDef>Classe</th>
+        <th mat-header-cell *matHeaderCellDef>Matéria</th>
         <td mat-cell *matCellDef="let item">{{ item.matter.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="width: 15%; text-align: center">Ações</th>
+        <td mat-cell *matCellDef="let item; let index = dataIndex" style="width: 15%; text-align: center">
+          <button mat-icon-button (click)="openEditDialog($event, item, index)" color="primary">
+            <mat-icon class="icon-button">edit</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let item" [attr.colspan]="2">
+        <td mat-cell *matCellDef="let item" [attr.colspan]="columns.length">
           <div class="teacher-position-detail" [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
-            <div class="teacher-position-detail-container" *ngFor="let itemDetail of item.positions">
+            <div
+              class="teacher-position-detail-container"
+              *ngFor="let itemDetail of item.positions | filter: currentFilter"
+            >
               <div class="teacher-position-detail-item">
                 <span><strong>Classe:</strong> {{ itemDetail.class?.name }}</span>
               </div>
@@ -43,5 +54,16 @@
       </tr>
     </table>
     <mat-paginator showFirstLastButtons hidePageSize [pageSize]="7"></mat-paginator>
+    <div class="buttons-footer">
+      <div style="width: 80%; display: flex; justify-content: flex-start">
+        <button mat-raised-button (click)="addItem()" color="accent">
+          <mat-icon>add</mat-icon> Nova definição de turmas
+        </button>
+      </div>
+      <button mat-raised-button color="primary" (click)="saveDefinitions()">
+        <mat-icon>download</mat-icon> Salvar
+      </button>
+      <button mat-raised-button (click)="reset()">Resetar</button>
+    </div>
   </div>
 </div>
