@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { FilterComponent } from './filter/filter.component';
+import { StudentsTableComponent } from './students-table/students-table.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import { FilterComponent } from './filter/filter.component';
     MatDividerModule,
     MatSnackBarModule,
     MatPaginatorModule,
+    StudentsTableComponent,
   ],
-  declarations: [FilterComponent, ConfirmationModalComponent],
+  declarations: [FilterComponent, ConfirmationModalComponent, StudentsTableComponent],
 })
 export class SharedModule {}

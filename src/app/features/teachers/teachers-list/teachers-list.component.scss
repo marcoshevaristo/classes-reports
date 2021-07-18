@@ -1,0 +1,61 @@
+tr.teacher-position-detail-row {
+  height: 0;
+}
+
+tr.teacher-position-row:not(.teacher-position-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.teacher-position-row:not(.teacher-position-expanded-row):active {
+  background: #efefef;
+}
+
+.teacher-position-row td {
+  border-bottom-width: 0;
+}
+
+.teacher-position-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .teacher-position-detail-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 15px;
+    align-items: center;
+
+    .teacher-position-detail-item {
+      flex: 1;
+
+      &:last-child {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+.teacher-position-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.teacher-position-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.teacher-position-description {
+  padding: 16px;
+}
+
+.teacher-position-description-attribution {
+  opacity: 0.5;
+}

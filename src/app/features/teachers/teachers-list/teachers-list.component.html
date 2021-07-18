@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="table">
+    <app-filter (onFilter)="onFilter($event)"></app-filter>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z3" multiTemplateDataRows>
+      <ng-container matColumnDef="teacherName">
+        <th mat-header-cell *matHeaderCellDef>Nome do professor</th>
+        <td mat-cell *matCellDef="let item">{{ item.teacher.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="matterName">
+        <th mat-header-cell *matHeaderCellDef>Classe</th>
+        <td mat-cell *matCellDef="let item">{{ item.matter.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let item" [attr.colspan]="2">
+          <div class="teacher-position-detail" [@detailExpand]="item == expandedItem ? 'expanded' : 'collapsed'">
+            <div class="teacher-position-detail-container" *ngFor="let itemDetail of item.positions">
+              <div class="teacher-position-detail-item">
+                <span><strong>Classe:</strong> {{ itemDetail.class?.name }}</span>
+              </div>
+              <div class="teacher-position-detail-item">
+                <span><strong>Grau:</strong> {{ itemDetail.degree?.name }}</span>
+              </div>
+              <div class="teacher-position-detail-item">
+                <button mat-raised-button (click)="openStudentsListModal(itemDetail)">Detalhes</button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let item; columns: columns"
+        class="teacher-position-row"
+        [class.teacher-position-expanded-row]="expandedItem === item"
+        (click)="expandedItem = expandedItem === item ? null : item"
+      ></tr>
+      <tr mat-row *matRowDef="let item; columns: ['expandedDetail']" class="teacher-position-detail-row"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum item encontrado</td>
+      </tr>
+    </table>
+    <mat-paginator showFirstLastButtons hidePageSize [pageSize]="7"></mat-paginator>
+  </div>
+</div>
