@@ -3,16 +3,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule],
+        declarations: [AppComponent],
+      }).compileComponents();
+    })
+  );
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -20,16 +18,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'teste-educacional'`, () => {
+  it(`should have as title 'classes-reports'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('teste-educacional');
+    expect(app.title).toEqual('classes-reports');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('teste-educacional app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('classes-reports app is running!');
   });
 });

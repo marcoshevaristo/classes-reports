@@ -30,7 +30,7 @@
       <td class="mat-cell" colspan="4">Nenhum item encontrado</td>
     </tr>
   </table>
-  <mat-paginator showFirstLastButtons hidePageSize [pageSize]="hideControls ? 5 : 7"></mat-paginator>
+  <mat-paginator showFirstLastButtons hidePageSize [pageSize]="5"></mat-paginator>
   <div *ngIf="!hideControls" class="buttons-footer">
     <div style="width: 80%; display: flex; justify-content: flex-start">
       <button mat-raised-button (click)="generateRandomStudents()" color="accent">
